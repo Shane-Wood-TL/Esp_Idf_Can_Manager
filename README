@@ -1,0 +1,8 @@
+# CAN manager
+Some of the newer changes to ESP-IDF changed the way the TWAI works. This made it more difficult to work with at it can only receive with ISRs rather than awaiting in freeRTOS. While I am sure this has performance benefits and it does allow for easier handling of unsolicited messages it is quite the change for things that were already working before. This project helps to remove some of these issues.
+
+## Can Manager
+This class handles the receiving and routing of CAN bus messages to the correct `canDriver` class instance based on its `nodeID`. This is done by having the `rx_callback` act as a middle ground for the messages. Then the `receive_task` actually sends the messages to the `canDriver` instance.
+
+## Can Driver
+This is a empty class that others will inherit from, it can send CAN bus messages, get it's node ID and has the virtual function for processing received data.
